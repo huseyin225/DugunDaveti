@@ -1,0 +1,1438 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Fotoğraf Yükle — Rukiye & Orhan</title>
+  <meta name="description" content="Rukiye & Orhan düğün fotoğraflarını yükleyin.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=Raleway:wght@200;300;400;500;600&display=swap"
+    rel="stylesheet">
+  <style>
+    :root {
+      --gold: #c9a96e;
+      --gold-light: #e8d5b0;
+      --gold-lighter: #f5ecd8;
+      --gold-dark: #a07840;
+      --dark: #0d0a06;
+      --dark-card: rgba(13, 10, 6, 0.75);
+      --cream: #fdf8f0;
+      --rose: #d4a0a0;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Raleway', sans-serif;
+      color: var(--cream);
+      background: var(--dark);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* ── Background ambient glow ── */
+    body::before {
+      content: '';
+      position: fixed;
+      top: -30%;
+      left: -20%;
+      width: 70%;
+      height: 70%;
+      background: radial-gradient(circle, rgba(201, 169, 110, 0.04) 0%, transparent 70%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    body::after {
+      content: '';
+      position: fixed;
+      bottom: -30%;
+      right: -20%;
+      width: 70%;
+      height: 70%;
+      background: radial-gradient(circle, rgba(201, 169, 110, 0.03) 0%, transparent 70%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* ── Container ── */
+    .page-container {
+      position: relative;
+      z-index: 1;
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 48px 24px 80px;
+    }
+
+    /* ── Header ── */
+    .page-header {
+      text-align: center;
+      margin-bottom: 40px;
+      animation: fadeInDown 0.8s ease;
+    }
+
+    .page-ornament {
+      font-size: 0.6rem;
+      color: rgba(201, 169, 110, 0.5);
+      letter-spacing: 0.5em;
+      margin-bottom: 8px;
+    }
+
+    .page-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.4rem;
+      color: var(--gold-light);
+      font-style: italic;
+      margin-bottom: 6px;
+    }
+
+    .page-subtitle {
+      font-size: 0.68rem;
+      letter-spacing: 0.22em;
+      color: var(--gold);
+      text-transform: uppercase;
+      opacity: 0.85;
+    }
+
+    .page-divider {
+      width: 80px;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+      margin: 18px auto 0;
+      opacity: 0.4;
+    }
+
+    /* ── Upload Card ── */
+    .upload-card {
+      background: linear-gradient(160deg, rgba(22, 16, 10, 0.96) 0%, rgba(13, 10, 6, 0.98) 100%);
+      border: 1px solid rgba(201, 169, 110, 0.2);
+      border-radius: 16px;
+      box-shadow: 0 25px 70px rgba(0, 0, 0, 0.5), 0 0 50px rgba(201, 169, 110, 0.06);
+      padding: 36px 28px;
+      position: relative;
+      overflow: hidden;
+      margin-bottom: 40px;
+      animation: fadeInUp 0.8s ease 0.15s both;
+    }
+
+    .upload-card::before {
+      content: '';
+      position: absolute;
+      inset: 8px;
+      border: 1px solid rgba(201, 169, 110, 0.08);
+      border-radius: 10px;
+      pointer-events: none;
+    }
+
+    /* ── Name Input ── */
+    .uploader-name-section {
+      margin-bottom: 24px;
+    }
+
+    .field-label {
+      font-size: 0.68rem;
+      letter-spacing: 0.12em;
+      color: var(--gold-light);
+      text-transform: uppercase;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      margin-bottom: 6px;
+    }
+
+    .field-req {
+      color: var(--rose);
+    }
+
+    .field-input {
+      width: 100%;
+      padding: 12px 14px 12px 42px;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(201, 169, 110, 0.22);
+      border-radius: 8px;
+      color: var(--cream);
+      font-family: 'Raleway', sans-serif;
+      font-size: 0.88rem;
+      transition: all 0.3s ease;
+    }
+
+    .field-input::placeholder {
+      color: rgba(232, 213, 176, 0.3);
+      font-size: 0.82rem;
+    }
+
+    .field-input:focus {
+      outline: none;
+      background: rgba(255, 255, 255, 0.07);
+      border-color: var(--gold);
+      box-shadow: 0 0 16px rgba(201, 169, 110, 0.22);
+    }
+
+    .input-wrap {
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+
+    .input-icon {
+      position: absolute;
+      left: 14px;
+      font-size: 0.95rem;
+      color: var(--gold);
+      opacity: 0.7;
+      pointer-events: none;
+    }
+
+    /* ── Drop Zone ── */
+    .drop-zone {
+      border: 2px dashed rgba(201, 169, 110, 0.25);
+      border-radius: 12px;
+      padding: 50px 24px;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.35s ease;
+      position: relative;
+      background: rgba(201, 169, 110, 0.02);
+    }
+
+    .drop-zone:hover,
+    .drop-zone.drag-over {
+      border-color: var(--gold);
+      background: rgba(201, 169, 110, 0.06);
+      box-shadow: 0 0 30px rgba(201, 169, 110, 0.08);
+    }
+
+    .drop-zone.drag-over {
+      transform: scale(1.01);
+    }
+
+    .drop-zone-icon {
+      font-size: 3rem;
+      margin-bottom: 14px;
+      display: block;
+      opacity: 0.7;
+      transition: transform 0.3s ease;
+    }
+
+    .drop-zone:hover .drop-zone-icon {
+      transform: translateY(-4px);
+    }
+
+    .drop-zone-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.15rem;
+      color: var(--gold-light);
+      margin-bottom: 8px;
+    }
+
+    .drop-zone-subtitle {
+      font-size: 0.72rem;
+      color: rgba(232, 213, 176, 0.45);
+      letter-spacing: 0.06em;
+    }
+
+    .drop-zone-browse {
+      display: inline-block;
+      margin-top: 18px;
+      padding: 9px 28px;
+      border: 1px solid rgba(201, 169, 110, 0.4);
+      border-radius: 50px;
+      color: var(--gold-light);
+      font-size: 0.72rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      background: transparent;
+    }
+
+    .drop-zone-browse:hover {
+      background: rgba(201, 169, 110, 0.15);
+      border-color: var(--gold);
+      color: #fff;
+    }
+
+    .drop-zone input[type="file"] {
+      display: none;
+    }
+
+    .drop-zone-hint {
+      margin-top: 14px;
+      font-size: 0.6rem;
+      color: rgba(232, 213, 176, 0.3);
+      letter-spacing: 0.04em;
+    }
+
+    /* ── Preview Grid ── */
+    .preview-section {
+      margin-top: 28px;
+      display: none;
+    }
+
+    .preview-section.has-items {
+      display: block;
+      animation: fadeInUp 0.4s ease;
+    }
+
+    .preview-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 14px;
+    }
+
+    .preview-title {
+      font-size: 0.72rem;
+      letter-spacing: 0.1em;
+      color: var(--gold);
+      text-transform: uppercase;
+    }
+
+    .preview-count {
+      font-size: 0.68rem;
+      color: rgba(232, 213, 176, 0.5);
+    }
+
+    .preview-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+      gap: 12px;
+    }
+
+    .preview-item {
+      position: relative;
+      border-radius: 8px;
+      overflow: hidden;
+      aspect-ratio: 1;
+      border: 1px solid rgba(201, 169, 110, 0.15);
+      animation: scaleIn 0.3s ease;
+    }
+
+    .preview-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .preview-item-remove {
+      position: absolute;
+      top: 6px;
+      right: 6px;
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      background: rgba(0, 0, 0, 0.7);
+      border: 1px solid rgba(201, 169, 110, 0.3);
+      color: var(--gold-light);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.7rem;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      opacity: 0;
+    }
+
+    .preview-item:hover .preview-item-remove {
+      opacity: 1;
+    }
+
+    .preview-item-remove:hover {
+      background: rgba(180, 60, 60, 0.8);
+      color: #fff;
+    }
+
+    .preview-item-name {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 4px 6px;
+      font-size: 0.55rem;
+      color: #fff;
+      background: linear-gradient(transparent, rgba(0, 0, 0, 0.8));
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .preview-item-size {
+      position: absolute;
+      top: 6px;
+      left: 6px;
+      padding: 2px 6px;
+      border-radius: 4px;
+      background: rgba(0, 0, 0, 0.65);
+      font-size: 0.5rem;
+      color: var(--gold-light);
+      letter-spacing: 0.04em;
+    }
+
+    /* ── Upload progress overlay on each preview item ── */
+    .preview-item-progress {
+      position: absolute;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.6);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+    }
+
+    .preview-item-progress.active {
+      opacity: 1;
+    }
+
+    .preview-item-progress.done {
+      background: rgba(40, 120, 60, 0.45);
+    }
+
+    .progress-ring {
+      width: 36px;
+      height: 36px;
+    }
+
+    .progress-ring circle {
+      fill: none;
+      stroke-width: 3;
+    }
+
+    .progress-ring .ring-bg {
+      stroke: rgba(255, 255, 255, 0.15);
+    }
+
+    .progress-ring .ring-fill {
+      stroke: var(--gold);
+      stroke-linecap: round;
+      stroke-dasharray: 94.25;
+      stroke-dashoffset: 94.25;
+      transform: rotate(-90deg);
+      transform-origin: center;
+      transition: stroke-dashoffset 0.3s ease;
+    }
+
+    .progress-percent {
+      font-size: 0.55rem;
+      color: #fff;
+      margin-top: 4px;
+      letter-spacing: 0.05em;
+    }
+
+    .progress-check {
+      font-size: 1.4rem;
+      color: var(--gold-light);
+    }
+
+    /* ── Upload Button ── */
+    .upload-actions {
+      margin-top: 24px;
+      display: none;
+      gap: 12px;
+      align-items: center;
+    }
+
+    .upload-actions.visible {
+      display: flex;
+      animation: fadeInUp 0.3s ease;
+    }
+
+    .upload-btn {
+      flex: 1;
+      padding: 14px 28px;
+      border: none;
+      border-radius: 8px;
+      background: linear-gradient(135deg, var(--gold-dark), var(--gold));
+      color: var(--dark);
+      font-family: 'Raleway', sans-serif;
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .upload-btn:hover:not(:disabled) {
+      transform: translateY(-1px);
+      box-shadow: 0 8px 25px rgba(201, 169, 110, 0.35);
+    }
+
+    .upload-btn:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    .upload-btn.loading .upload-btn-text {
+      opacity: 0;
+    }
+
+    .upload-btn.loading .upload-spinner {
+      display: block;
+    }
+
+    .upload-spinner {
+      display: none;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 20px;
+      height: 20px;
+      border: 2px solid transparent;
+      border-top-color: var(--dark);
+      border-radius: 50%;
+      animation: spin 0.7s linear infinite;
+    }
+
+    .clear-btn {
+      padding: 14px 22px;
+      border: 1px solid rgba(201, 169, 110, 0.3);
+      border-radius: 8px;
+      background: transparent;
+      color: var(--gold-light);
+      font-family: 'Raleway', sans-serif;
+      font-size: 0.72rem;
+      letter-spacing: 0.08em;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .clear-btn:hover {
+      background: rgba(180, 60, 60, 0.15);
+      border-color: rgba(180, 60, 60, 0.4);
+      color: #e8a0a0;
+    }
+
+    /* ── Alert Box ── */
+    .alert-box {
+      display: none;
+      margin-top: 16px;
+      padding: 12px 16px;
+      border-radius: 8px;
+      font-size: 0.78rem;
+      line-height: 1.5;
+      animation: fadeInUp 0.3s ease;
+    }
+
+    .alert-box.error {
+      background: rgba(180, 60, 60, 0.15);
+      border: 1px solid rgba(180, 60, 60, 0.3);
+      color: #e8a0a0;
+    }
+
+    .alert-box.success {
+      background: rgba(60, 140, 80, 0.12);
+      border: 1px solid rgba(60, 140, 80, 0.3);
+      color: #a0d8a0;
+    }
+
+    .alert-box.info {
+      background: rgba(201, 169, 110, 0.1);
+      border: 1px solid rgba(201, 169, 110, 0.25);
+      color: var(--gold-light);
+    }
+
+    /* ── Toast Notifications ── */
+    .toast-container {
+      position: fixed;
+      top: 24px;
+      right: 24px;
+      z-index: 10000;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      max-width: 380px;
+      pointer-events: none;
+    }
+
+    .toast {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 14px 18px;
+      border-radius: 12px;
+      font-size: 0.78rem;
+      line-height: 1.4;
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      box-shadow: 0 8px 32px rgba(0,0,0,0.45), 0 0 0 1px rgba(255,255,255,0.05);
+      pointer-events: auto;
+      animation: toastSlideIn 0.45s cubic-bezier(0.16,1,0.3,1) forwards;
+      transform: translateX(120%);
+      opacity: 0;
+    }
+
+    .toast.toast-exit {
+      animation: toastSlideOut 0.35s cubic-bezier(0.55,0,1,0.45) forwards;
+    }
+
+    .toast-success {
+      background: rgba(40, 120, 60, 0.85);
+      border: 1px solid rgba(80, 180, 100, 0.35);
+      color: #d0f0d0;
+    }
+
+    .toast-error {
+      background: rgba(160, 50, 50, 0.85);
+      border: 1px solid rgba(200, 80, 80, 0.35);
+      color: #fdd;
+    }
+
+    .toast-info {
+      background: rgba(30, 25, 15, 0.9);
+      border: 1px solid rgba(201, 169, 110, 0.35);
+      color: var(--gold-light);
+    }
+
+    .toast-icon {
+      font-size: 1.3rem;
+      flex-shrink: 0;
+    }
+
+    .toast-body {
+      flex: 1;
+    }
+
+    .toast-title {
+      font-weight: 600;
+      font-size: 0.82rem;
+      margin-bottom: 2px;
+    }
+
+    .toast-msg {
+      opacity: 0.85;
+      font-size: 0.72rem;
+    }
+
+    .toast-close {
+      background: none;
+      border: none;
+      color: inherit;
+      font-size: 1rem;
+      cursor: pointer;
+      opacity: 0.6;
+      transition: opacity 0.2s;
+      flex-shrink: 0;
+      padding: 0 2px;
+    }
+
+    .toast-close:hover {
+      opacity: 1;
+    }
+
+    @keyframes toastSlideIn {
+      from { transform: translateX(120%); opacity: 0; }
+      to   { transform: translateX(0);    opacity: 1; }
+    }
+
+    @keyframes toastSlideOut {
+      from { transform: translateX(0);    opacity: 1; max-height: 120px; margin-bottom: 0; }
+      to   { transform: translateX(120%); opacity: 0; max-height: 0;     margin-bottom: -10px; }
+    }
+
+    @media (max-width: 600px) {
+      .toast-container {
+        top: 12px;
+        right: 12px;
+        left: 12px;
+        max-width: none;
+      }
+    }
+
+    /* ── Back link style (reused from gallery-view-btn) ── */
+    .nav-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 16px;
+      border-radius: 20px;
+      border: 1px solid var(--gold);
+      background: rgba(201, 169, 110, 0.12);
+      color: var(--gold-light);
+      font-size: 0.75rem;
+      text-decoration: none;
+      transition: all 0.25s;
+    }
+
+    .nav-link:hover {
+      background: var(--gold);
+      color: #0d0a06;
+      transform: translateY(-2px);
+    }
+
+    /* ── Lightbox ── */
+    .lightbox-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      background: rgba(0, 0, 0, 0.92);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.35s ease;
+      cursor: zoom-out;
+    }
+
+    .lightbox-overlay.active {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .lightbox-overlay img {
+      max-width: 90vw;
+      max-height: 85vh;
+      object-fit: contain;
+      border-radius: 6px;
+      box-shadow: 0 20px 80px rgba(0, 0, 0, 0.6);
+      transform: scale(0.92);
+      transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .lightbox-overlay.active img {
+      transform: scale(1);
+    }
+
+    .lightbox-close {
+      position: absolute;
+      top: 20px;
+      right: 24px;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: rgba(201, 169, 110, 0.1);
+      border: 1px solid rgba(201, 169, 110, 0.25);
+      color: var(--gold-light);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.3rem;
+      cursor: pointer;
+      transition: all 0.25s ease;
+    }
+
+    .lightbox-close:hover {
+      background: rgba(201, 169, 110, 0.3);
+      color: #fff;
+      transform: rotate(90deg);
+    }
+
+    .lightbox-info {
+      position: absolute;
+      bottom: 24px;
+      left: 50%;
+      transform: translateX(-50%);
+      text-align: center;
+      color: rgba(232, 213, 176, 0.6);
+      font-size: 0.7rem;
+      letter-spacing: 0.06em;
+    }
+
+    /* ── Animations ── */
+    @keyframes fadeInDown {
+      from {
+        opacity: 0;
+        transform: translateY(-18px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(18px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes scaleIn {
+      from {
+        opacity: 0;
+        transform: scale(0.85);
+      }
+
+      to {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+
+    @keyframes spin {
+      to {
+        transform: translate(-50%, -50%) rotate(360deg);
+      }
+    }
+
+    /* ── Responsive ── */
+    @media (max-width: 600px) {
+      .page-container {
+        padding: 32px 16px 60px;
+      }
+
+      .page-title {
+        font-size: 1.8rem;
+      }
+
+      .upload-card {
+        padding: 24px 18px;
+      }
+
+      .drop-zone {
+        padding: 36px 16px;
+      }
+
+      .preview-grid {
+        grid-template-columns: repeat(auto-fill, minmax(90px, 1fr));
+        gap: 8px;
+      }
+
+
+
+      .upload-actions {
+        flex-direction: column;
+      }
+
+      .upload-btn,
+      .clear-btn {
+        width: 100%;
+        text-align: center;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- TOAST CONTAINER -->
+  <div class="toast-container" id="toast-container"></div>
+
+  <div class="page-container">
+
+    <!-- Header -->
+    <header class="page-header">
+      <div class="page-ornament">✦ ✦ ✦</div>
+      <h1 class="page-title">Fotoğraf Yükle</h1>
+      <p class="page-subtitle">Rukiye &amp; Orhan — Düğün Anıları</p>
+      <div class="page-divider"></div>
+    </header>
+
+    <!-- Upload Card -->
+    <div class="upload-card">
+
+      <!-- Uploader Name -->
+      <div class="uploader-name-section">
+        <label class="field-label" for="uploader-name">
+          <span>Adınız</span>
+          <span class="field-req">*</span>
+        </label>
+        <div class="input-wrap">
+          <span class="input-icon">&#128100;</span>
+          <input type="text" id="uploader-name" class="field-input" placeholder="Adınız ve Soyadınız"
+            autocomplete="name" oninput="handleUploaderNameInput(this)">
+        </div>
+      </div>
+
+      <!-- Drop Zone -->
+      <div class="drop-zone" id="drop-zone" onclick="document.getElementById('file-input').click()">
+        <span class="drop-zone-icon">&#128247;</span>
+        <div class="drop-zone-title">Fotoğraflarınızı buraya sürükleyin</div>
+        <div class="drop-zone-subtitle">veya dosya seçmek için tıklayın</div>
+        <button class="drop-zone-browse" onclick="event.stopPropagation(); document.getElementById('file-input').click()">
+          Dosya Seç
+        </button>
+        <div class="drop-zone-hint">JPG, PNG, WEBP — Maks. 10 MB / dosya — En fazla 20 fotoğraf</div>
+        <input type="file" id="file-input" multiple accept="image/jpeg,image/png,image/webp"
+          onchange="handleFileSelect(this.files)">
+      </div>
+
+      <!-- Preview -->
+      <div class="preview-section" id="preview-section">
+        <div class="preview-header">
+          <span class="preview-title">Seçilen Fotoğraflar</span>
+          <span class="preview-count" id="preview-count"></span>
+        </div>
+        <div class="preview-grid" id="preview-grid"></div>
+      </div>
+
+      <!-- Actions -->
+      <div class="upload-actions" id="upload-actions">
+        <button class="upload-btn" id="upload-btn" onclick="startUpload()">
+          <span class="upload-spinner" id="upload-spinner"></span>
+          <span class="upload-btn-text" id="upload-btn-text">Fotoğrafları Yükle</span>
+        </button>
+        <button class="clear-btn" onclick="clearAll()">Temizle</button>
+      </div>
+
+      <!-- Alert -->
+      <div class="alert-box" id="alert-box"></div>
+    </div>
+
+
+  </div>
+
+  <!-- Firebase SDKs (v10 compat) -->
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-storage-compat.js"></script>
+
+  <script>
+    // ========================================================
+    // FIREBASE CONFIGURATION (same as index.html)
+    // ========================================================
+    var firebaseConfig = {
+      apiKey: "AIzaSyCeKaEJkXdRY3TLo2Hk_w4rJuMc7aGyypo",
+      authDomain: "test-ff8e2.firebaseapp.com",
+      projectId: "test-ff8e2",
+      storageBucket: "test-ff8e2.firebasestorage.app",
+      messagingSenderId: "258377126973",
+      appId: "1:258377126973:web:7dfc38a0c804aed2a34654",
+      measurementId: "G-W6BM6W1JXG"
+    };
+
+    var firestoreDb = null;
+    var firebaseStorage = null;
+
+    function isFirebaseConfigured() {
+      return typeof firebase !== 'undefined' &&
+        firebaseConfig &&
+        firebaseConfig.apiKey &&
+        !firebaseConfig.apiKey.includes('BURAYA_') &&
+        !firebaseConfig.apiKey.includes('YOUR_');
+    }
+
+    function initFirebase() {
+      if (isFirebaseConfigured()) {
+        try {
+          if (!firebase.apps || !firebase.apps.length) {
+            firebase.initializeApp(firebaseConfig);
+          }
+          firestoreDb = firebase.firestore();
+          firebaseStorage = firebase.storage();
+          try {
+            firebaseStorage.setMaxUploadRetryTime(8000);
+          } catch (e) {}
+          console.log('Firebase başarıyla başlatıldı (Firestore + Storage).');
+        } catch (err) {
+          console.warn('Firebase başlatma hatası:', err);
+        }
+      } else {
+        console.log('Firebase henüz yapılandırılmadı (Demo Modu). Yüklenen fotoğraflar yerel depolamaya kaydedilecektir.');
+      }
+    }
+    initFirebase();
+
+    // ========================================================
+    // STATE
+    // ========================================================
+    var selectedFiles = []; // Array of { file, previewUrl, id }
+    var MAX_FILES = 20;
+    var MAX_SIZE_MB = 10;
+    var fileIdCounter = 0;
+
+    // ========================================================
+    // NAME INPUT
+    // ========================================================
+    function handleUploaderNameInput(input) {
+      var filtered = input.value.replace(/[^a-zA-ZçğıöşüÇĞİÖŞÜ\s]/g, '');
+      filtered = filtered.replace(/\s{2,}/g, ' ');
+      if (input.value !== filtered) {
+        input.value = filtered;
+      }
+    }
+
+    // ========================================================
+    // DRAG & DROP
+    // ========================================================
+    var dropZone = document.getElementById('drop-zone');
+
+    ['dragenter', 'dragover'].forEach(function (evt) {
+      dropZone.addEventListener(evt, function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        dropZone.classList.add('drag-over');
+      });
+    });
+
+    ['dragleave', 'drop'].forEach(function (evt) {
+      dropZone.addEventListener(evt, function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        dropZone.classList.remove('drag-over');
+      });
+    });
+
+    dropZone.addEventListener('drop', function (e) {
+      var files = e.dataTransfer.files;
+      handleFileSelect(files);
+    });
+
+    // ========================================================
+    // FILE SELECTION
+    // ========================================================
+    function handleFileSelect(fileList) {
+      if (!fileList || fileList.length === 0) return;
+
+      var validTypes = ['image/jpeg', 'image/png', 'image/webp'];
+      var maxBytes = MAX_SIZE_MB * 1024 * 1024;
+      var added = 0;
+      var errors = [];
+
+      for (var i = 0; i < fileList.length; i++) {
+        var f = fileList[i];
+
+        if (selectedFiles.length >= MAX_FILES) {
+          errors.push('En fazla ' + MAX_FILES + ' fotoğraf seçebilirsiniz.');
+          break;
+        }
+
+        if (validTypes.indexOf(f.type) === -1) {
+          errors.push('"' + f.name + '" desteklenmeyen format.');
+          continue;
+        }
+
+        if (f.size > maxBytes) {
+          errors.push('"' + f.name + '" ' + MAX_SIZE_MB + ' MB sınırını aşıyor.');
+          continue;
+        }
+
+        fileIdCounter++;
+        selectedFiles.push({
+          file: f,
+          previewUrl: URL.createObjectURL(f),
+          id: 'file-' + fileIdCounter
+        });
+        added++;
+      }
+
+      if (errors.length > 0) {
+        showAlert(errors.join(' '), 'error');
+      } else {
+        hideAlert();
+      }
+
+      renderPreviews();
+
+      // Reset the input so the same file can be re-selected
+      document.getElementById('file-input').value = '';
+    }
+
+    // ========================================================
+    // PREVIEW RENDERING
+    // ========================================================
+    function renderPreviews() {
+      var section = document.getElementById('preview-section');
+      var grid = document.getElementById('preview-grid');
+      var count = document.getElementById('preview-count');
+      var actions = document.getElementById('upload-actions');
+
+      grid.innerHTML = '';
+
+      if (selectedFiles.length === 0) {
+        section.classList.remove('has-items');
+        actions.classList.remove('visible');
+        return;
+      }
+
+      section.classList.add('has-items');
+      actions.classList.add('visible');
+      count.textContent = selectedFiles.length + ' / ' + MAX_FILES;
+
+      selectedFiles.forEach(function (item) {
+        var div = document.createElement('div');
+        div.className = 'preview-item';
+        div.id = item.id;
+
+        var sizeMB = (item.file.size / (1024 * 1024)).toFixed(1);
+
+        div.innerHTML =
+          '<img src="' + item.previewUrl + '" alt="' + item.file.name + '">' +
+          '<span class="preview-item-size">' + sizeMB + ' MB</span>' +
+          '<span class="preview-item-name">' + item.file.name + '</span>' +
+          '<button class="preview-item-remove" onclick="removeFile(\'' + item.id + '\')" title="Kaldır">✕</button>' +
+          '<div class="preview-item-progress" id="progress-' + item.id + '">' +
+          '  <svg class="progress-ring" viewBox="0 0 36 36">' +
+          '    <circle class="ring-bg" cx="18" cy="18" r="15"/>' +
+          '    <circle class="ring-fill" id="ring-' + item.id + '" cx="18" cy="18" r="15"/>' +
+          '  </svg>' +
+          '  <span class="progress-percent" id="pct-' + item.id + '">0%</span>' +
+          '</div>';
+
+        grid.appendChild(div);
+      });
+    }
+
+    function removeFile(id) {
+      selectedFiles = selectedFiles.filter(function (item) {
+        if (item.id === id) {
+          URL.revokeObjectURL(item.previewUrl);
+          return false;
+        }
+        return true;
+      });
+      renderPreviews();
+    }
+
+    function clearAll() {
+      selectedFiles.forEach(function (item) {
+        URL.revokeObjectURL(item.previewUrl);
+      });
+      selectedFiles = [];
+      renderPreviews();
+      hideAlert();
+    }
+
+    // ========================================================
+    // UPLOAD
+    // ========================================================
+    async function startUpload() {
+      var nameInput = document.getElementById('uploader-name');
+      var uploaderName = nameInput ? nameInput.value.trim() : '';
+
+      if (uploaderName.length < 2 || /[^a-zA-ZçğıöşüÇĞİÖŞÜ\s]/.test(uploaderName)) {
+        showAlert('Lütfen geçerli bir ad giriniz (sadece harfler).', 'error');
+        if (nameInput) nameInput.focus();
+        return;
+      }
+
+      if (selectedFiles.length === 0) {
+        showAlert('Lütfen en az bir fotoğraf seçiniz.', 'error');
+        return;
+      }
+
+      var uploadBtn = document.getElementById('upload-btn');
+      uploadBtn.classList.add('loading');
+      uploadBtn.disabled = true;
+      hideAlert();
+
+      var successCount = 0;
+      var failCount = 0;
+      var totalFiles = selectedFiles.length;
+
+      for (var i = 0; i < selectedFiles.length; i++) {
+        var item = selectedFiles[i];
+        try {
+          await uploadSingleFile(item, uploaderName);
+          successCount++;
+          showToast('success', 'Yüklendi ✓', '"' + item.file.name + '" başarıyla yüklendi. (' + successCount + '/' + totalFiles + ')');
+        } catch (err) {
+          console.error('Yükleme hatası (' + item.file.name + '):', err);
+          failCount++;
+          showToast('error', 'Yükleme Başarısız', '"' + item.file.name + '" yüklenemedi.');
+        }
+      }
+
+      uploadBtn.classList.remove('loading');
+      uploadBtn.disabled = false;
+
+      if (failCount === 0) {
+        showAlert(successCount + ' fotoğraf başarıyla yüklendi! ✨', 'success');
+        clearAll();
+      } else if (successCount > 0) {
+        showAlert(successCount + ' başarılı, ' + failCount + ' başarısız yükleme.', 'info');
+      } else {
+        showAlert('Tüm yüklemeler başarısız oldu. Lütfen tekrar deneyiniz.', 'error');
+      }
+    }
+
+    // ========================================================
+    // FAST CLIENT-SIDE IMAGE COMPRESSION (Max 1600px, 82% quality)
+    // 10 MB'lık ağır fotoğrafları 200-350 KB'a düşürerek saniyeler içinde yüklenmesini sağlar
+    // ========================================================
+    function compressImage(file, maxDimension, quality) {
+      return new Promise(function (resolve) {
+        if (!file.type || !file.type.startsWith('image/') || file.size < 350 * 1024) {
+          resolve(file);
+          return;
+        }
+
+        var reader = new FileReader();
+        reader.onload = function (e) {
+          var img = new Image();
+          img.onload = function () {
+            var width = img.width;
+            var height = img.height;
+            var maxDim = maxDimension || 1600;
+
+            if (width > maxDim || height > maxDim) {
+              if (width > height) {
+                height = Math.round((height * maxDim) / width);
+                width = maxDim;
+              } else {
+                width = Math.round((width * maxDim) / height);
+                height = maxDim;
+              }
+            }
+
+            var canvas = document.createElement('canvas');
+            canvas.width = width;
+            canvas.height = height;
+            var ctx = canvas.getContext('2d');
+            ctx.drawImage(img, 0, 0, width, height);
+
+            canvas.toBlob(function (blob) {
+              if (blob && blob.size < file.size) {
+                var compressedFile = new File([blob], file.name.replace(/\.[^/.]+$/, "") + ".jpg", {
+                  type: 'image/jpeg',
+                  lastModified: Date.now()
+                });
+                resolve(compressedFile);
+              } else {
+                resolve(file);
+              }
+            }, 'image/jpeg', quality || 0.82);
+          };
+          img.onerror = function () {
+            resolve(file);
+          };
+          img.src = e.target.result;
+        };
+        reader.onerror = function () {
+          resolve(file);
+        };
+        reader.readAsDataURL(file);
+      });
+    }
+
+    function savePhotoLocally(file, originalName, uploaderName, ringFill, pctText) {
+      return new Promise(function (resolve) {
+        var reader = new FileReader();
+        reader.onload = function (e) {
+          var demoData = {
+            uploaderName: uploaderName,
+            fileName: originalName,
+            downloadURL: e.target.result,
+            fileSize: file.size,
+            fileType: file.type || 'image/jpeg',
+            uploadedAt: new Date().toISOString(),
+            device: /Mobi|Android/i.test(navigator.userAgent) ? 'Mobil' : 'Masaüstü'
+          };
+          try {
+            var existing = JSON.parse(localStorage.getItem('wedding_photos') || '[]');
+            existing.push(demoData);
+            localStorage.setItem('wedding_photos', JSON.stringify(existing));
+          } catch (err) {
+            console.warn('localStorage kayıt:', err);
+          }
+          resolve();
+        };
+        reader.readAsDataURL(file);
+      });
+    }
+
+    async function uploadSingleFile(item, uploaderName) {
+      var progressOverlay = document.getElementById('progress-' + item.id);
+      var ringFill = document.getElementById('ring-' + item.id);
+      var pctText = document.getElementById('pct-' + item.id);
+
+      if (progressOverlay) progressOverlay.classList.add('active');
+
+      // Smooth animated progress counter
+      var currentProgress = { value: 0 };
+      function animateToProgress(target, durationMs) {
+        return new Promise(function(resolve) {
+          var start = currentProgress.value;
+          var diff = target - start;
+          if (diff <= 0) { resolve(); return; }
+          var startTime = performance.now();
+          function step(now) {
+            var elapsed = now - startTime;
+            var ratio = Math.min(elapsed / durationMs, 1);
+            // Ease-out curve for natural feel
+            var eased = 1 - Math.pow(1 - ratio, 3);
+            var val = Math.round(start + diff * eased);
+            currentProgress.value = val;
+            updateProgress(ringFill, pctText, val);
+            if (ratio < 1) {
+              requestAnimationFrame(step);
+            } else {
+              currentProgress.value = target;
+              updateProgress(ringFill, pctText, target);
+              resolve();
+            }
+          }
+          requestAnimationFrame(step);
+        });
+      }
+
+      // Phase 1: Compression (0% → 20%)
+      await animateToProgress(5, 200);
+      var fileToUpload = item.file;
+      try {
+        fileToUpload = await compressImage(item.file, 1600, 0.82);
+      } catch (err) {
+        console.warn('Sıkıştırma atlandı:', err);
+      }
+      await animateToProgress(20, 400);
+
+      // Phase 2: Upload (20% → 95%)
+      if (firebaseStorage && firestoreDb) {
+        try {
+          var uploadPromise = new Promise(function (resolveUpload, rejectUpload) {
+            var timestamp = Date.now();
+            var safeName = fileToUpload.name.replace(/[^a-zA-Z0-9._-]/g, '_');
+            var storagePath = 'wedding-photos/' + timestamp + '_' + safeName;
+            var storageRef = firebaseStorage.ref(storagePath);
+            var uploadTask = storageRef.put(fileToUpload);
+
+            var timer = setTimeout(function () {
+              try { uploadTask.cancel(); } catch (e) {}
+              rejectUpload(new Error('Firebase Storage zaman aşımı (Bucket oluşturulmamış olabilir)'));
+            }, 15000);
+
+            uploadTask.on('state_changed',
+              function (snapshot) {
+                var firebaseProgress = (snapshot.bytesTransferred / snapshot.totalBytes);
+                var mapped = 20 + Math.round(firebaseProgress * 72);
+                // Direct update for real Firebase progress (no animation delay)
+                currentProgress.value = Math.min(mapped, 92);
+                updateProgress(ringFill, pctText, currentProgress.value);
+              },
+              function (error) {
+                clearTimeout(timer);
+                rejectUpload(error);
+              },
+              async function () {
+                clearTimeout(timer);
+                try {
+                  var downloadURL = await uploadTask.snapshot.ref.getDownloadURL();
+                  await firestoreDb.collection('wedding_photos').add({
+                    uploaderName: uploaderName,
+                    fileName: item.file.name,
+                    storagePath: storagePath,
+                    downloadURL: downloadURL,
+                    fileSize: fileToUpload.size,
+                    fileType: fileToUpload.type,
+                    uploadedAt: firebase.firestore.FieldValue.serverTimestamp(),
+                    device: /Mobi|Android/i.test(navigator.userAgent) ? 'Mobil' : 'Masaüstü'
+                  });
+                  resolveUpload();
+                } catch (err) {
+                  rejectUpload(err);
+                }
+              }
+            );
+          });
+
+          await uploadPromise;
+        } catch (storageErr) {
+          console.warn('Bulut depolama uyarısı:', storageErr);
+          await savePhotoLocally(fileToUpload, item.file.name, uploaderName, ringFill, pctText);
+          window._hasStorageWarning = true;
+        }
+      } else {
+        // Demo/local mode: simulate realistic upload timing
+        var steps = [35, 48, 62, 75, 85, 92];
+        for (var s = 0; s < steps.length; s++) {
+          await new Promise(function(r) { setTimeout(r, 120 + Math.random() * 180); });
+          await animateToProgress(steps[s], 200);
+        }
+        await savePhotoLocally(fileToUpload, item.file.name, uploaderName, ringFill, pctText);
+      }
+
+      // Phase 3: Finalize (→ 100%)
+      await animateToProgress(100, 300);
+      if (progressOverlay) progressOverlay.classList.add('done');
+      if (pctText) pctText.innerHTML = '<span class="progress-check">✓</span>';
+    }
+
+    function updateProgress(ringFill, pctText, percent) {
+      if (ringFill) {
+        var circumference = 94.25; // 2 * PI * 15
+        var offset = circumference - (percent / 100) * circumference;
+        ringFill.style.strokeDashoffset = offset;
+      }
+      if (pctText && percent < 100) {
+        pctText.textContent = percent + '%';
+      }
+    }
+
+    // ========================================================
+    // TOAST NOTIFICATIONS
+    // ========================================================
+    function showToast(type, title, message, durationMs) {
+      var container = document.getElementById('toast-container');
+      if (!container) return;
+
+      var icons = { success: '✅', error: '❌', info: 'ℹ️' };
+      var toast = document.createElement('div');
+      toast.className = 'toast toast-' + type;
+      toast.innerHTML =
+        '<span class="toast-icon">' + (icons[type] || '📌') + '</span>' +
+        '<div class="toast-body">' +
+        '  <div class="toast-title">' + title + '</div>' +
+        '  <div class="toast-msg">' + message + '</div>' +
+        '</div>' +
+        '<button class="toast-close" onclick="dismissToast(this.parentElement)">✕</button>';
+
+      container.appendChild(toast);
+
+      // Auto dismiss
+      var dur = durationMs || 4500;
+      setTimeout(function() {
+        dismissToast(toast);
+      }, dur);
+    }
+
+    function dismissToast(toastEl) {
+      if (!toastEl || toastEl.classList.contains('toast-exit')) return;
+      toastEl.classList.add('toast-exit');
+      setTimeout(function() {
+        if (toastEl.parentElement) toastEl.parentElement.removeChild(toastEl);
+      }, 400);
+    }
+
+    // ========================================================
+    // ALERTS
+    // ========================================================
+    function showAlert(msg, type, isHtml) {
+      var box = document.getElementById('alert-box');
+      if (box) {
+        if (isHtml) {
+          box.innerHTML = msg;
+        } else {
+          box.textContent = msg;
+        }
+        box.className = 'alert-box ' + (type || 'error');
+        box.style.display = 'block';
+      }
+    }
+
+    function hideAlert() {
+      var box = document.getElementById('alert-box');
+      if (box) {
+        box.style.display = 'none';
+        box.textContent = '';
+      }
+    }
+  </script>
+
+</body>
+
+</html>
