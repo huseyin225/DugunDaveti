@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>Rukiye &amp; Orhan - Düğün Davetiyesi</title>
   <meta name="description"
-    content="Rukiye Asan ve Orhan Yıldız'in düğün törenine davetlisiniz. 23-24 Ekim 2026, Dedeman Otel, Cizre/Şırnak.">
+    content="Rukiye Asan ve Orhan Yıldız'in yemekli düğün törenine davetlisiniz. 23-24 Ekim 2026, Dedeman Otel, Cizre/Şırnak.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link
@@ -1187,18 +1187,265 @@
     }
 
     .family-duo-col .family-name {
-      font-size: clamp(1.4rem, 2.8vw, 1.85rem);
-      color: var(--gold-light);
-      letter-spacing: 0.03em;
+      font-size: clamp(1.6rem, 3.2vw, 2.3rem);
+      font-weight: 700;
+      color: var(--gold-lighter);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      text-shadow: 0 2px 14px rgba(201, 169, 110, 0.35);
     }
 
     .family-duo-amp {
       font-family: 'Playfair Display', serif;
-      font-size: 1.8rem;
+      font-size: 2.2rem;
       color: var(--gold);
       font-style: italic;
-      opacity: 0.75;
+      opacity: 0.85;
       user-select: none;
+    }
+
+    /* ===== ARTIST CARD ===== */
+    .artist-card {
+      margin-top: 25px;
+      background: linear-gradient(135deg, rgba(201, 169, 110, 0.12) 0%, rgba(13, 10, 6, 0.85) 100%);
+      border: 1px solid rgba(201, 169, 110, 0.28);
+      border-radius: 12px;
+      padding: 26px 20px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+    }
+
+    .artist-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    }
+
+    .artist-badge {
+      font-size: 0.58rem;
+      letter-spacing: 0.3em;
+      color: var(--gold);
+      border: 1px solid rgba(201, 169, 110, 0.35);
+      padding: 4px 14px;
+      border-radius: 50px;
+      display: inline-block;
+      margin-bottom: 12px;
+      text-transform: uppercase;
+      font-weight: 700;
+    }
+
+    .artist-name {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.8rem, 4vw, 2.5rem);
+      color: var(--gold-lighter);
+      font-style: italic;
+      letter-spacing: 0.04em;
+      margin-bottom: 8px;
+      text-shadow: 0 2px 12px rgba(201, 169, 110, 0.3);
+    }
+
+    .artist-divider {
+      width: 45px;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+      margin: 10px auto 14px auto;
+    }
+
+    .artist-tags {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 12px;
+    }
+
+    .artist-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.8rem;
+      color: var(--gold-light);
+      background: rgba(201, 169, 110, 0.1);
+      border: 1px solid rgba(201, 169, 110, 0.25);
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-weight: 600;
+    }
+
+    .artist-tag-sep {
+      color: var(--gold);
+      opacity: 0.6;
+    }
+
+    .artist-desc {
+      font-size: 0.85rem;
+      color: rgba(232, 213, 176, 0.85);
+      max-width: 520px;
+      margin: 0 auto;
+      line-height: 1.6;
+    }
+
+    /* ===== QR SECTION ===== */
+    .qr-section-card {
+      max-width: 580px;
+      margin: 0 auto;
+      background: var(--dark-card);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      border: 1px solid rgba(201, 169, 110, 0.22);
+      border-radius: 14px;
+      padding: 34px 24px;
+      display: flex;
+      align-items: center;
+      gap: 28px;
+      flex-wrap: wrap;
+      justify-content: center;
+      box-shadow: 0 15px 45px rgba(0, 0, 0, 0.4);
+      position: relative;
+    }
+
+    .qr-section-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 60px;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    }
+
+    .qr-frame-outer {
+      position: relative;
+      padding: 12px;
+      background: #ffffff;
+      border-radius: 12px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), 0 0 20px rgba(201, 169, 110, 0.25);
+      border: 2px solid var(--gold);
+      flex-shrink: 0;
+      transition: transform 0.3s ease;
+    }
+
+    .qr-frame-outer:hover {
+      transform: scale(1.04);
+    }
+
+    .qr-image {
+      display: block;
+      width: 140px;
+      height: 140px;
+      object-fit: contain;
+      border-radius: 4px;
+    }
+
+    .qr-content {
+      flex: 1;
+      min-width: 240px;
+      text-align: left;
+    }
+
+    .qr-badge {
+      font-size: 0.58rem;
+      letter-spacing: 0.3em;
+      color: var(--gold);
+      text-transform: uppercase;
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+
+    .qr-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.5rem;
+      color: var(--gold-light);
+      margin-bottom: 8px;
+      font-style: italic;
+    }
+
+    .qr-desc {
+      font-size: 0.88rem;
+      color: rgba(232, 213, 176, 0.85);
+      line-height: 1.6;
+      margin-bottom: 20px;
+    }
+
+    .qr-action-buttons {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .qr-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(201, 169, 110, 0.15);
+      border: 1px solid rgba(201, 169, 110, 0.4);
+      color: var(--gold-light);
+      text-decoration: none;
+      padding: 10px 20px;
+      border-radius: 50px;
+      font-size: 0.74rem;
+      letter-spacing: 0.08em;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      cursor: pointer;
+    }
+
+    .qr-btn:hover {
+      background: var(--gold);
+      color: #0d0a06;
+      border-color: var(--gold);
+      transform: translateY(-2px);
+    }
+
+    .qr-btn-primary {
+      background: linear-gradient(135deg, #d4b578 0%, #c9a96e 50%, #a07840 100%);
+      color: #0d0a06;
+      font-weight: 700;
+      border-color: transparent;
+      box-shadow: 0 4px 18px rgba(201, 169, 110, 0.32);
+    }
+
+    .qr-btn-primary:hover {
+      box-shadow: 0 6px 24px rgba(201, 169, 110, 0.5);
+      color: #000;
+    }
+
+    .qr-frame-btn {
+      display: block;
+      margin-top: 10px;
+      text-align: center;
+      background: rgba(201, 169, 110, 0.18);
+      border: 1px solid rgba(201, 169, 110, 0.45);
+      color: #8c6828;
+      text-decoration: none;
+      font-size: 0.72rem;
+      font-weight: 700;
+      padding: 7px 14px;
+      border-radius: 20px;
+      transition: all 0.25s ease;
+    }
+
+    .qr-frame-btn:hover {
+      background: var(--gold);
+      color: #0d0a06;
+    }
+
+    @media (max-width: 600px) {
+      .qr-content {
+        text-align: center;
+      }
+      .qr-action-buttons {
+        justify-content: center;
+      }
     }
 
     /* Quote */
@@ -1409,7 +1656,44 @@
       font-size: 0.9rem;
       color: rgba(232, 213, 176, 0.75);
       line-height: 1.8;
-      margin-bottom: 30px;
+      margin-bottom: 20px;
+    }
+
+    .rsvp-meal-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      background: rgba(201, 169, 110, 0.12);
+      border: 1px solid rgba(201, 169, 110, 0.35);
+      border-radius: 30px;
+      padding: 10px 22px;
+      margin-bottom: 26px;
+      font-size: 0.85rem;
+      color: var(--gold-light);
+      line-height: 1.5;
+      text-align: center;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+    }
+
+    .rsvp-meal-badge strong {
+      color: #fff;
+      font-weight: 700;
+    }
+
+    .rsvp-modal-meal-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      margin-top: 8px;
+      padding: 4px 14px;
+      border-radius: 20px;
+      background: rgba(201, 169, 110, 0.12);
+      border: 1px solid rgba(201, 169, 110, 0.3);
+      font-size: 0.76rem;
+      color: var(--gold-light);
+      letter-spacing: 0.04em;
+      font-weight: 600;
     }
 
     .rsvp-cta-btn {
@@ -2112,7 +2396,7 @@
 
   <!-- FIXED BACKGROUND PHOTO -->
   <div class="bg-photo">
-    <img src="1000037746.jpg" alt="Rukiye ve Orhan" loading="eager">
+    <img src="1000037746.jpeg" onerror="this.onerror=null;this.src='1000037746.jpg';" alt="Rukiye ve Orhan" loading="eager">
   </div>
 
   <canvas id="particles"></canvas>
@@ -2188,7 +2472,7 @@
       <div class="hero-photo-wrap reveal d4">
         <div class="hero-photo-frame"></div>
         <div class="hero-photo-frame-inner"></div>
-        <img class="hero-photo" src="1000037746.jpg" alt="Rukiye ve Orhan">
+        <img class="hero-photo" src="1000037746.jpeg" onerror="this.onerror=null;this.src='1000037746.jpg';" alt="Rukiye ve Orhan">
         <div class="hero-photo-overlay"></div>
       </div>
       <div class="scroll-hint">
@@ -2245,11 +2529,15 @@
               <div><span class="event-label">Mekan</span><span class="event-value">Dedeman Otel, Cizre / Şırnak</span>
               </div>
             </div>
+            <div class="event-row">
+              <div class="event-icon">&#127908;</div>
+              <div><span class="event-label">Sanatçı</span><span class="event-value">Ferhat Cizîrî</span></div>
+            </div>
           </div>
         </div>
         <div class="event-card reveal d2">
           <div class="event-header dugun">
-            <div class="event-badge">TÖRENİ</div>
+            <div class="event-badge">DÜĞÜNÜMÜZ YEMEKLİDİR</div>
             <div class="event-name">Düğün</div>
           </div>
           <div class="event-body">
@@ -2264,6 +2552,15 @@
             <div class="event-row">
               <div class="event-icon">&#128205;</div>
               <div><span class="event-label">Mekan</span><span class="event-value">Dedeman Otel, Cizre / Şırnak</span>
+              </div>
+            </div>
+            <div class="event-row">
+              <div class="event-icon">&#127908;</div>
+              <div><span class="event-label">Sanatçı</span><span class="event-value">Ferhat Cizîrî</span></div>
+            </div>
+            <div class="event-row">
+              <div class="event-icon">&#127869;</div>
+              <div><span class="event-label">İkram</span><span class="event-value">Düğünümüz yemeklidir</span>
               </div>
             </div>
           </div>
@@ -2300,6 +2597,40 @@
       </div>
     </section>
 
+    <!-- QR CODE & FOTOĞRAF YÜKLEME BÖLÜMÜ -->
+    <div class="sep">
+      <div class="sep-line"></div>
+      <div class="sep-diamond"></div>
+      <div class="sep-line"></div>
+    </div>
+    <section class="section" id="qr-upload-section">
+      <div class="section-eyebrow reveal">ANILARIMIZI PAYLAŞIN</div>
+      <h2 class="section-title reveal">Birlikte Güzel Anılar Yaratalım!</h2>
+      <div class="qr-section-card reveal d1">
+        <div class="qr-frame-outer">
+          <img src="qr-code.jpeg" alt="Düğün Fotoğraf ve Video Yükleme QR Kodu" class="qr-image">
+          <a href="https://huseyin225.github.io/DugunDaveti/upload" target="_blank" rel="noopener noreferrer" class="qr-frame-btn">
+            <span>📸</span> Fotoğraf Yükle
+          </a>
+        </div>
+        <div class="qr-content">
+          <div class="qr-badge">&#10022; &nbsp; ANILARIMIZI ÖLÜMSÜZLEŞTİRİN &nbsp; &#10022;</div>
+          <h3 class="qr-title">BİRLİKTE GÜZEL<br>ANILAR YARATALIM!</h3>
+          <p class="qr-desc">
+            Bu QR kodu telefonunuza okutun; fotoğraf, video ve mesajlarınızı paylaşın!
+          </p>
+          <div class="qr-action-buttons">
+            <a href="https://huseyin225.github.io/DugunDaveti/upload" class="qr-btn qr-btn-primary" target="_blank" rel="noopener noreferrer" title="Fotoğraf ve Video Yükleme Sayfasına Git">
+              <span>📸</span> Fotoğraf &amp; Video Yükle
+            </a>
+            <a href="qr-code.jpeg" download="rukiye_orhan_foto_yukle_qr.jpeg" class="qr-btn" title="QR Kodu Cihazınıza İndirin">
+              <span>📥</span> QR Kodu İndir
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <!-- RSVP / RESERVATION SECTION -->
     <div class="sep">
       <div class="sep-line"></div>
@@ -2313,15 +2644,14 @@
         <div class="rsvp-card-inner">
           <h3 class="rsvp-card-title">Bizimle Olacak mısınız?</h3>
           <p class="rsvp-card-desc">
-            Bu en özel ve mutlu günümüzde yanımızda olmanız bize büyük onur verecektir. Masa düzeni ve ikram
-            hazırlıklarımızı en iyi şekilde planlayabilmemiz adına lütfen katılım durumunuzu bildiriniz.
+            Bu en özel ve mutlu günümüzde yanımızda olmanız bize büyük onur verecektir. Düğünümüz <strong>yemeklidir</strong>. Masa düzeni ve ikram hazırlıklarımızı eksiksiz planlayabilmemiz adına lütfen katılım durumunuzu bildiriniz.
           </p>
           <button type="button" class="rsvp-cta-btn" onclick="openRsvpModal()" id="open-rsvp-cta-btn">
             <span>&#10022;</span>
             <span>Rezervasyon Yap (LCV)</span>
             <span>&#10022;</span>
           </button>
-          <div class="rsvp-deadline">Lütfen en geç 15 Ekim 2026 tarihine kadar bildiriniz</div>
+          <div class="rsvp-deadline">Lütfen en geç 24 Ekim 2026 tarihine kadar bildiriniz</div>
         </div>
       </div>
     </section>
@@ -2338,11 +2668,11 @@
       <div class="family-card single-family-card reveal d1">
         <div class="family-duo">
           <div class="family-duo-col">
-            <div class="family-name">Asan Ailesi</div>
+            <div class="family-name">ASAN AİLESİ</div>
           </div>
           <div class="family-duo-amp">&amp;</div>
           <div class="family-duo-col">
-            <div class="family-name">Yıldız Ailesi</div>
+            <div class="family-name">YILDIZ AİLESİ</div>
           </div>
         </div>
       </div>
@@ -2391,6 +2721,7 @@
         <div class="rsvp-modal-ornament">&#10022; &#10022; &#10022;</div>
         <h3 class="rsvp-modal-title">L.C.V. &amp; Rezervasyon</h3>
         <div class="rsvp-modal-subtitle">Rukiye &amp; Orhan &bull; Düğün Töreni</div>
+        <div class="rsvp-modal-meal-tag">&#127869; Düğünümüz Yemeklidir</div>
         <div class="rsvp-modal-divider"></div>
       </div>
 
@@ -2425,7 +2756,7 @@
         <!-- Kişi Sayısı (Kullanıcı manuel girer, en az 1, en fazla 15, sadece sayı, iki haneli) -->
         <div class="rsvp-field">
           <label for="rsvp-guest-count" class="rsvp-label">
-            <span>Kişi Sayısı</span>
+            <span>Kişi Sayısı (Yemek Rezervasyonu)</span>
             <span class="rsvp-req">*</span>
             <span class="rsvp-opt">(1 - 15 kişi)</span>
           </label>

@@ -25,19 +25,20 @@ service cloud.firestore {
   match /databases/{database}/documents {
     // 1. L.C.V. / Rezervasyonlar
     match /reservations/{reservationId} {
-      // Davetlilerin rezervasyon yapabilmesi için doğrudan yazmaya izin ver
+      // Davetlilerin rezervasyon yapabilmesi için yazmaya izin ver
       allow create: if true;
-      // Güvenlik: Misafirlerin başkalarının telefon ve isim bilgilerini siteden okumasını engelle
-      allow read, update, delete: if false;
+      // Katılımcı listesini (participants.html) görüntülemek ve yönetmek için
+      allow read, delete: if true;
+      allow update: if false;
     }
 
-    // 2. Fotoğraf Yüklemeleri Galerisi (upload.html)
+    // 2. Fotoğraf Yüklemeleri Galerisi (upload.html / gallery.html)
     match /wedding_photos/{photoId} {
       // Misafirlerin fotoğraf bilgilerini kaydetmesine izin ver
       allow create: if true;
-      // Misafirlerin yüklenen fotoğrafları galeride görüntülemesine izin ver
-      allow read: if true;
-      allow update, delete: if false;
+      // Galeri görüntüleme ve yönetimi için okuma ve silme izni
+      allow read, delete: if true;
+      allow update: if false;
     }
   }
 }

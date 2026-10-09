@@ -573,15 +573,15 @@
       line-height: 1.4;
       backdrop-filter: blur(16px);
       -webkit-backdrop-filter: blur(16px);
-      box-shadow: 0 8px 32px rgba(0,0,0,0.45), 0 0 0 1px rgba(255,255,255,0.05);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.45), 0 0 0 1px rgba(255, 255, 255, 0.05);
       pointer-events: auto;
-      animation: toastSlideIn 0.45s cubic-bezier(0.16,1,0.3,1) forwards;
+      animation: toastSlideIn 0.45s cubic-bezier(0.16, 1, 0.3, 1) forwards;
       transform: translateX(120%);
       opacity: 0;
     }
 
     .toast.toast-exit {
-      animation: toastSlideOut 0.35s cubic-bezier(0.55,0,1,0.45) forwards;
+      animation: toastSlideOut 0.35s cubic-bezier(0.55, 0, 1, 0.45) forwards;
     }
 
     .toast-success {
@@ -639,13 +639,31 @@
     }
 
     @keyframes toastSlideIn {
-      from { transform: translateX(120%); opacity: 0; }
-      to   { transform: translateX(0);    opacity: 1; }
+      from {
+        transform: translateX(120%);
+        opacity: 0;
+      }
+
+      to {
+        transform: translateX(0);
+        opacity: 1;
+      }
     }
 
     @keyframes toastSlideOut {
-      from { transform: translateX(0);    opacity: 1; max-height: 120px; margin-bottom: 0; }
-      to   { transform: translateX(120%); opacity: 0; max-height: 0;     margin-bottom: -10px; }
+      from {
+        transform: translateX(0);
+        opacity: 1;
+        max-height: 120px;
+        margin-bottom: 0;
+      }
+
+      to {
+        transform: translateX(120%);
+        opacity: 0;
+        max-height: 0;
+        margin-bottom: -10px;
+      }
     }
 
     @media (max-width: 600px) {
@@ -864,7 +882,8 @@
         <span class="drop-zone-icon">&#128247;</span>
         <div class="drop-zone-title">Fotoğraflarınızı buraya sürükleyin</div>
         <div class="drop-zone-subtitle">veya dosya seçmek için tıklayın</div>
-        <button class="drop-zone-browse" onclick="event.stopPropagation(); document.getElementById('file-input').click()">
+        <button class="drop-zone-browse"
+          onclick="event.stopPropagation(); document.getElementById('file-input').click()">
           Dosya Seç
         </button>
         <div class="drop-zone-hint">JPG, PNG, WEBP — Maks. 10 MB / dosya — En fazla 20 fotoğraf</div>
@@ -937,7 +956,7 @@
           firebaseStorage = firebase.storage();
           try {
             firebaseStorage.setMaxUploadRetryTime(8000);
-          } catch (e) {}
+          } catch (e) { }
           console.log('Firebase başarıyla başlatıldı (Firestore + Storage).');
         } catch (err) {
           console.warn('Firebase başlatma hatası:', err);
@@ -1256,7 +1275,7 @@
       // Smooth animated progress counter
       var currentProgress = { value: 0 };
       function animateToProgress(target, durationMs) {
-        return new Promise(function(resolve) {
+        return new Promise(function (resolve) {
           var start = currentProgress.value;
           var diff = target - start;
           if (diff <= 0) { resolve(); return; }
@@ -1292,6 +1311,9 @@
       await animateToProgress(20, 400);
 
       // Phase 2: Upload (20% → 95%)
+      var uploaded = false;
+
+      // Yöntem 1: Firebase Storage + Firestore (en iyi kalite)
       if (firebaseStorage && firestoreDb) {
         try {
           var uploadPromise = new Promise(function (resolveUpload, rejectUpload) {
@@ -1302,15 +1324,14 @@
             var uploadTask = storageRef.put(fileToUpload);
 
             var timer = setTimeout(function () {
-              try { uploadTask.cancel(); } catch (e) {}
-              rejectUpload(new Error('Firebase Storage zaman aşımı (Bucket oluşturulmamış olabilir)'));
+              try { uploadTask.cancel(); } catch (e) { }
+              rejectUpload(new Error('Firebase Storage zaman aşımı'));
             }, 15000);
 
             uploadTask.on('state_changed',
               function (snapshot) {
                 var firebaseProgress = (snapshot.bytesTransferred / snapshot.totalBytes);
                 var mapped = 20 + Math.round(firebaseProgress * 72);
-                // Direct update for real Firebase progress (no animation delay)
                 currentProgress.value = Math.min(mapped, 92);
                 updateProgress(ringFill, pctText, currentProgress.value);
               },
@@ -1341,19 +1362,55 @@
           });
 
           await uploadPromise;
+          uploaded = true;
         } catch (storageErr) {
-          console.warn('Bulut depolama uyarısı:', storageErr);
-          await savePhotoLocally(fileToUpload, item.file.name, uploaderName, ringFill, pctText);
-          window._hasStorageWarning = true;
+          console.warn('Storage yükleme başarısız, Firestore-doğrudan yönteme geçiliyor:', storageErr);
         }
-      } else {
-        // Demo/local mode: simulate realistic upload timing
+      }
+
+      // Yöntem 2: Storage başarısız olduysa veya yoksa → fotoğrafı sıkıştırıp doğrudan Firestore'a base64 olarak yaz
+      if (!uploaded && firestoreDb) {
+        try {
+          await animateToProgress(40, 300);
+          // Ekstra sıkıştırma (800px, %65 kalite) — Firestore 1MB belge sınırına uymak için
+          var smallFile = await compressImage(fileToUpload, 800, 0.65);
+          await animateToProgress(60, 300);
+
+          var dataUrl = await new Promise(function (resolve, reject) {
+            var reader = new FileReader();
+            reader.onload = function (e) { resolve(e.target.result); };
+            reader.onerror = function () { reject(new Error('Dosya okunamadı')); };
+            reader.readAsDataURL(smallFile);
+          });
+          await animateToProgress(80, 300);
+
+          await firestoreDb.collection('wedding_photos').add({
+            uploaderName: uploaderName,
+            fileName: item.file.name,
+            downloadURL: dataUrl,
+            fileSize: smallFile.size,
+            fileType: smallFile.type || 'image/jpeg',
+            uploadedAt: firebase.firestore.FieldValue.serverTimestamp(),
+            device: /Mobi|Android/i.test(navigator.userAgent) ? 'Mobil' : 'Masaüstü',
+            source: 'firestore-direct'
+          });
+          await animateToProgress(92, 200);
+          uploaded = true;
+          console.log('Fotoğraf doğrudan Firestore\'a yazıldı (Storage atlandı).');
+        } catch (firestoreErr) {
+          console.error('Firestore doğrudan yazma hatası:', firestoreErr);
+        }
+      }
+
+      // Yöntem 3: Son çare — yerel depolama
+      if (!uploaded) {
         var steps = [35, 48, 62, 75, 85, 92];
         for (var s = 0; s < steps.length; s++) {
-          await new Promise(function(r) { setTimeout(r, 120 + Math.random() * 180); });
-          await animateToProgress(steps[s], 200);
+          await new Promise(function (r) { setTimeout(r, 80 + Math.random() * 120); });
+          await animateToProgress(steps[s], 150);
         }
         await savePhotoLocally(fileToUpload, item.file.name, uploaderName, ringFill, pctText);
+        console.warn('Fotoğraf yalnızca yerel depolamaya kaydedildi.');
       }
 
       // Phase 3: Finalize (→ 100%)
@@ -1395,7 +1452,7 @@
 
       // Auto dismiss
       var dur = durationMs || 4500;
-      setTimeout(function() {
+      setTimeout(function () {
         dismissToast(toast);
       }, dur);
     }
@@ -1403,7 +1460,7 @@
     function dismissToast(toastEl) {
       if (!toastEl || toastEl.classList.contains('toast-exit')) return;
       toastEl.classList.add('toast-exit');
-      setTimeout(function() {
+      setTimeout(function () {
         if (toastEl.parentElement) toastEl.parentElement.removeChild(toastEl);
       }, 400);
     }
